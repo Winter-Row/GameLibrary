@@ -95,4 +95,9 @@ public class PlayerMovement : MonoBehaviour
         playerInputY = Input.GetAxis("Vertical");
         //rb.velocity = new Vector2(playerSpeed * playerInputX, playerSpeed * playerInputY);
     }
+
+    public Vector2 getPosition()
+    {
+        return transform.position;
+    }
 }

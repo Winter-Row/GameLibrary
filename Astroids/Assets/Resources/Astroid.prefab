@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2023668363506979704}
   - component: {fileID: 320277792976246955}
   - component: {fileID: 2146427433824002040}
+  - component: {fileID: -9209253389098210416}
   m_Layer: 0
   m_Name: Astroid
   m_TagString: Untagged
@@ -101,3 +102,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-9209253389098210416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745499859531678594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa6dc7ab81078e40a8d15b03078c422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
