@@ -1,24 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class AstroidSpawner : MonoBehaviour
 {
-    private Camera camera;
+    /*TO DO
+     * Make asteriod spawning more dynamic with mulitple spawning in somtimes, Asteriods that are bigger,
+     * and some that are faster
+     */
+    private CameraFunctions camFunc;
     private GameObject astroid;
-    private Vector3 spawnPoint;
+    private Vector2 spawnPoint;
     // Start is called before the first frame update
     void Start()
     {
-        camera = GetComponent<Camera>();
-        astroid = Resources.Load<GameObject>("Astroid");
-        spawnPoint = camera.ViewportToWorldPoint(new Vector3(1f, 1f, 0));
-        Instantiate(astroid, spawnPoint, Quaternion.identity);
+        camFunc = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFunctions>();
+        astroid = Resources.Load<GameObject>("Prefabs/Astroid");
+        StartCoroutine(spawnAstroid());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
+    }
+
+    IEnumerator spawnAstroid()
+    {
+        yield return new WaitForSeconds(2f);
+        spawnPoint = generateSpawnPosition();
+        Instantiate(astroid, spawnPoint, Quaternion.identity);
+        StartCoroutine(spawnAstroid());
+    }
+
+    private Vector2 generateSpawnPosition()
+    {
+        float xPos;
+        float[] choices = { camFunc.getCameraBondWidth(), camFunc.getCameraBondWidth() * -1 };
+        float yPos = Random.Range((camFunc.getCameraBondHight() * -1) - 2, camFunc.getCameraBondHight() + 2);
+
+        if(yPos > camFunc.getCameraBondHight() || yPos < camFunc.getCameraBondHight() * -1)
+        {
+            xPos = Random.Range((camFunc.getCameraBondWidth() * -1) - 2, camFunc.getCameraBondWidth() + 2);
+        }
+        else
+        {
+            int randIndex = Random.Range(0, choices.Length);
+            xPos = choices[randIndex];
+        }
+
+
+        return new Vector2(xPos, yPos);
     }
 }

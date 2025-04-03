@@ -13,12 +13,6 @@ public class CameraFunctions : MonoBehaviour
         player = GameObject.Find("Ship");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public Vector3 getPlayerCameraPos()
     {
         return camera.WorldToScreenPoint(player.transform.position);

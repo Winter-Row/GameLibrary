@@ -1,32 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Asteriod : MonoBehaviour
 {
     private Vector2 playerPos;
-    private Vector2 startingPos;
     private float speed;
+    private Vector3 movementVector;
+    private Camera cam;
     // Start is called before the first frame update
     void Start()
     {
-        speed = 5f;
         playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().getPosition();
-        startingPos = new Vector2(transform.position.x, transform.position.y);
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        speed = 5f;
+        movementVector = (playerPos - (Vector2)transform.position).normalized * speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float step = speed * Time.deltaTime;
-        if(startingPos.x > 0 && startingPos.y > 0)
+        move();
+        checkToDestroy();
+    }
+    public void checkToDestroy()
+    {
+        if (cam.WorldToScreenPoint(transform.position).x > Screen.width + 20 || cam.WorldToScreenPoint(transform.position).x < - 20)
         {
-            transform.position = new Vector2(transform.position.x - step, transform.position.y - step);
-        }else if (startingPos.x < 0 && startingPos.y < 0)
-        {
-            transform.position = new Vector2(transform.position.x + step, transform.position.y + step);
+            Destroy(gameObject);
         }
-        //transform.position = Vector2.MoveTowards(transform.position,playerPos,step);
+    }
 
+    private void move()
+    {
+        transform.position += movementVector * Time.deltaTime;
     }
 }
