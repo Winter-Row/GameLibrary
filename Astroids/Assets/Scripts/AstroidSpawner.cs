@@ -6,8 +6,7 @@ using UnityEngine;
 public class AstroidSpawner : MonoBehaviour
 {
     /*TO DO
-     * Make asteriod spawning more dynamic with mulitple spawning in somtimes, Asteriods that are bigger,
-     * and some that are faster
+     * Make asteriod spawning more dynamic with mulitple spawning in.
      */
     private CameraFunctions camFunc;
     private GameObject astroid;
@@ -30,7 +29,7 @@ public class AstroidSpawner : MonoBehaviour
         yield return new WaitForSeconds(2f);
         spawnPoint = generateSpawnPosition();
         Instantiate(astroid, spawnPoint, Quaternion.identity);
-        StartCoroutine(spawnAstroid());
+        //StartCoroutine(spawnAstroid());
     }
 
     private Vector2 generateSpawnPosition()
