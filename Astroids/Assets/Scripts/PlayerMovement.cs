@@ -5,15 +5,19 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private float PlayerRotationZAxis;
+    private float boostingVelocity, floatingVelocity;
     private Rigidbody2D rb;
     private CameraFunctions cf;
+    private Animator animator;
     [SerializeField] private Transform thrustLocation;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         cf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFunctions>();
         PlayerRotationZAxis = 0;
+        floatingVelocity = rb.velocity.x;
     }
 
     // Update is called once per frame
@@ -22,6 +26,20 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             rb.AddForceAtPosition(transform.right, thrustLocation.position);
+            boostingVelocity = rb.velocity.x;
+        }
+        else
+        {
+            floatingVelocity = boostingVelocity;
+        }
+
+        if(floatingVelocity != boostingVelocity)
+        {
+            animator.SetBool("Boosting",true);
+        }
+        else
+        {
+            animator.SetBool("Boosting", false);
         }
         rotatePlayer();
         checkWithinBonds();
